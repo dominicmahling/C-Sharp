@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Enter Text");
+string input = Console.ReadLine();
+Console.WriteLine(input);
 var userid = 0;
 var Bog = new Bogus.Faker<User>()
     .RuleFor( u => u.Id, f => userid++)
