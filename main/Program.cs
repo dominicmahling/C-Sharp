@@ -18,16 +18,40 @@ foreach (User user in users)
 
 bool giveQuestion()
 {
-    int firstNumber = rnd.Next(1,1000);
-    int secondNumber = rnd.Next(1,1000);
-    Console.WriteLine($"{firstNumber} + {secondNumber}");
+    int operationValue = rnd.Next(1,4);
+    int result;
+    if (operationValue == 1)
+    {
+        int firstNumber = rnd.Next(1,1000);
+        int secondNumber = rnd.Next(1,1000);
+        Console.WriteLine($"{firstNumber} + {secondNumber}");
+        result = firstNumber + secondNumber;
+        
+    }
+
+    else if (operationValue == 2)
+    {
+        int firstNumber = rnd.Next(1,1000);
+        int secondNumber = rnd.Next(1,1000);
+        Console.WriteLine($"{firstNumber} - {secondNumber}");
+        result = firstNumber - secondNumber;
+        
+    }
+    else
+    {
+        int firstNumber = rnd.Next(1,100);
+        int secondNumber = rnd.Next(1,10);
+        Console.WriteLine($"{firstNumber} * {secondNumber}");
+        result = firstNumber * secondNumber;
+    }
+    
     string input = Console.ReadLine();
-    if (firstNumber + secondNumber ==  Int32.Parse(input)){
+    if (result ==  Int32.Parse(input)){
         Console.WriteLine("Right!");
         return true;
     }
     else{
-        Console.WriteLine($" Wrong! {firstNumber} + {secondNumber} = {firstNumber+secondNumber}");
+        Console.WriteLine($" Wrong! Solution ist {result}");
         return false;
     }
      
