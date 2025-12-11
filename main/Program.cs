@@ -3,7 +3,9 @@
 Console.WriteLine("Enter Text");
 Random rnd = new Random();
 
+RunGuesser();
 RunQuiz(5);
+
 
 bool GiveQuestion(int rightAnswers)
 {
@@ -30,6 +32,9 @@ bool GiveQuestion(int rightAnswers)
 
 }
 
+
+
+
 void RunQuiz(int maxHP)
 {
     int currentHP = maxHP;
@@ -42,6 +47,22 @@ void RunQuiz(int maxHP)
     }
     Console.WriteLine($"Game over, Total Score: {rightAnswers}");
 
+
+}
+
+void RunGuesser()
+{
+    numberGuesser numberClass = new numberGuesser();
+    numberClass.printIntervall();
+    int numberGuesser = -1;
+    while (!numberClass.isNumber(numberGuesser))
+    {
+        while (!int.TryParse(Console.ReadLine(), out numberGuesser))
+        {
+            Console.WriteLine("Input is not a valid number");
+        }
+        Console.WriteLine($" The right number is {numberClass.Relation(numberGuesser)}");
+    }
 }
 
 var userid = 0;
@@ -114,4 +135,39 @@ class User()
     {
         Name = name;
     }
+}
+
+class numberGuesser{
+    private readonly int _lowerBorder;
+    private readonly int _higherBorder;
+    private readonly int _number;
+
+    private static readonly Random _random = new();
+
+    public numberGuesser(){
+        int intervallBorder1= _random.Next(0,100);
+        int intervallBorder2 = _random.Next(0,100);
+        _lowerBorder = Math.Min(intervallBorder1,intervallBorder2);
+        _higherBorder = Math.Max(intervallBorder1,intervallBorder2);
+        _number = _random.Next(_lowerBorder,_higherBorder);
+    }
+    public Boolean isNumber(int numberGuesser)
+    {
+        return numberGuesser == _number;
+    }
+
+    public String Relation(int numberGuesser)
+    {   
+        if (isNumber(numberGuesser))
+        {
+            return "same value!";
+        }
+        return numberGuesser < _number ? "higher" : "lower";
+    }
+
+    public void printIntervall()
+    {
+        Console.WriteLine($"Number is between {_lowerBorder} and {_higherBorder} !");
+    }
+    
 }
