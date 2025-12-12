@@ -54,14 +54,14 @@ void RunGuesser()
 {
     numberGuesser numberClass = new numberGuesser();
     numberClass.printIntervall();
-    int numberGuesser = -1;
-    while (!numberClass.isNumber(numberGuesser))
+    int numberGuessed = -1;
+    while (!numberClass.isNumber(numberGuessed))
     {
-        while (!int.TryParse(Console.ReadLine(), out numberGuesser))
+        while (!int.TryParse(Console.ReadLine(), out numberGuessed))
         {
             Console.WriteLine("Input is not a valid number");
         }
-        Console.WriteLine($" The right number is {numberClass.Relation(numberGuesser)}");
+        Console.WriteLine($" The right number is {numberClass.Relation(numberGuessed)}");
     }
 }
 
@@ -151,18 +151,18 @@ class numberGuesser{
         _higherBorder = Math.Max(intervallBorder1,intervallBorder2);
         _number = _random.Next(_lowerBorder,_higherBorder);
     }
-    public Boolean isNumber(int numberGuesser)
+    public Boolean isNumber(int numberGuessed)
     {
-        return numberGuesser == _number;
+        return numberGuessed == _number;
     }
 
-    public String Relation(int numberGuesser)
+    public String Relation(int numberGuessed)
     {   
-        if (isNumber(numberGuesser))
+        if (isNumber(numberGuessed))
         {
             return "same value!";
         }
-        return numberGuesser < _number ? "higher" : "lower";
+        return numberGuessed < _number ? "higher" : "lower";
     }
 
     public void printIntervall()
