@@ -5,12 +5,10 @@ Random rnd = new Random();
 
 RunGuesser();
 RunQuiz(5);
-
-
 bool GiveQuestion(int rightAnswers)
 {
     var question = Question.Generate(true);
-    
+
     Console.WriteLine(question.ToString());
 
     int number;
@@ -29,11 +27,7 @@ bool GiveQuestion(int rightAnswers)
         Console.WriteLine($" Wrong! Solution is {question.Result}");
         return false;
     }
-
 }
-
-
-
 
 void RunQuiz(int maxHP)
 {
@@ -45,22 +39,22 @@ void RunQuiz(int maxHP)
         currentHP--;
         Console.WriteLine("Wrong! Lifes remaining: " + new String('o', currentHP) + new String('-', maxHP - currentHP));
     }
+
     Console.WriteLine($"Game over, Total Score: {rightAnswers}");
-
-
 }
 
 void RunGuesser()
 {
-    numberGuesser numberClass = new numberGuesser();
-    numberClass.printIntervall();
+    NumberGuesser numberClass = new NumberGuesser();
+    numberClass.PrintIntervall();
     int numberGuessed = -1;
-    while (!numberClass.isNumber(numberGuessed))
+    while (!numberClass.IsNumber(numberGuessed))
     {
         while (!int.TryParse(Console.ReadLine(), out numberGuessed))
         {
             Console.WriteLine("Input is not a valid number");
         }
+
         Console.WriteLine($" The right number is {numberClass.Relation(numberGuessed)}");
     }
 }
@@ -75,18 +69,31 @@ foreach (User user in users)
 {
     Console.WriteLine($"{user.Id}\t{user.Name}");
 }
-class Question
+
+internal class Question
 {
     private const int ValueMin = 1;
     private const int ValueMax = 1000;
-    
-    private static readonly Random _random = new();
-    
+    private static readonly Random Random = new ();
+    private readonly int _value1;
+    private readonly int _value2;
+    private readonly char _sign;
+
+    public int Result { get; }
+
+    private Question(int value1, int value2, char sign, int result)
+    {
+        _value1 = value1;
+        _value2 = value2;
+        _sign = sign;
+        this.Result = result;
+    }
+
     public static Question Generate(bool isEasyMode)
     {
-        var value1 = _random.Next(ValueMin, ValueMax);
-        var value2 = _random.Next(ValueMin, ValueMax);
-        var (sign, result) = _random.Next(1,4) switch
+        var value1 = Random.Next(ValueMin, ValueMax);
+        var value2 = Random.Next(ValueMin, ValueMax);
+        var (sign, result) = Random.Next(1,4) switch
         {
             1 => ('+', value1 + value2),
             2 => ('-', value1 - value2),
@@ -95,28 +102,15 @@ class Question
         };
         if (isEasyMode && sign == '*')
         {
-            value1 = value1/10;
-            value2=value1/10;
+            value1 = value1 / 10;
+            value2 = value1 / 10;
             result = value1 * value2;
         }
+
         return new Question(value1, value2, sign, result);
     }
 
-    private readonly int _value1;
-    private readonly int _value2;
-    private readonly char _sign;
-    
-    public int Result { get; }
-
-    private Question(int value1, int value2, char sign, int result)
-    {
-        _value1 = value1;
-        _value2 = value2;
-        _sign = sign;
-        Result = result;
-    }
-
-    public bool IsValid(int result) => Result == result;
+    public bool IsValid(int result) => this.Result == result;
 
     public override string ToString()
     {
@@ -124,50 +118,48 @@ class Question
     }
 }
 
-
-
-class User()
+internal class User()
 {
     public int Id { get; set; }
+
     public string? Name { get; set; }
 
-    public User(string name) : this()
+    public User(string name)
+        : this()
     {
         Name = name;
     }
 }
 
-class numberGuesser{
+internal class NumberGuesser{
     private readonly int _lowerBorder;
     private readonly int _higherBorder;
     private readonly int _number;
 
     private static readonly Random _random = new();
 
-    public numberGuesser(){
-        int intervallBorder1= _random.Next(0,100);
-        int intervallBorder2 = _random.Next(0,100);
-        _lowerBorder = Math.Min(intervallBorder1,intervallBorder2);
-        _higherBorder = Math.Max(intervallBorder1,intervallBorder2);
-        _number = _random.Next(_lowerBorder,_higherBorder);
+    public NumberGuesser()
+    {
+        int intervallBorder1 = _random.Next(0, 100);
+        int intervallBorder2 = _random.Next(0, 100);
+        _lowerBorder = Math.Min(intervallBorder1, intervallBorder2);
+        _higherBorder = Math.Max(intervallBorder1, intervallBorder2);
+        _number = _random.Next(_lowerBorder, _higherBorder);
     }
-    public Boolean isNumber(int numberGuessed)
+
+    public bool IsNumber(int numberGuessed)
     {
         return numberGuessed == _number;
     }
 
-    public String Relation(int numberGuessed)
-    {   
-        if (isNumber(numberGuessed))
-        {
-            return "same value!";
-        }
-        return numberGuessed < _number ? "higher" : "lower";
+    public string Relation(int numberGuessed)
+    {
+        return IsNumber(numberGuessed) ? "same value!" : numberGuessed < _number ? "higher" : "lower";
     }
 
-    public void printIntervall()
+    public void PrintIntervall()
     {
         Console.WriteLine($"Number is between {_lowerBorder} and {_higherBorder} !");
     }
-    
+
 }
