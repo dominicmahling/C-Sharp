@@ -1,9 +1,9 @@
 public class NumberGuesser{
+
+    private static readonly Random _random = new ();
     private readonly int _lowerBorder;
     private readonly int _higherBorder;
     private readonly int _number;
-
-    private static readonly Random _random = new();
 
     public NumberGuesser()
     {

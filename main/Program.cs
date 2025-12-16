@@ -38,7 +38,7 @@ void RunQuiz(int maxHP)
     {
         while (GiveQuestion(rightAnswers)) { rightAnswers++; }
         currentHP--;
-        Console.WriteLine("Wrong! Lifes remaining: " + new String('o', currentHP) + new String('-', maxHP - currentHP));
+        Console.WriteLine("Wrong! Lifes remaining: " + new string('o', currentHP) + new string('-', maxHP - currentHP));
     }
 
     Console.WriteLine($"Game over, Total Score: {rightAnswers}");
