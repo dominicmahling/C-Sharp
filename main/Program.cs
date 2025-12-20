@@ -68,10 +68,6 @@ void generateAndSortList()
     Console.WriteLine(string.Join(", ", numbers));
 }
 
-{
-    throw new NotImplementedException();
-}
-
 var userid = 0;
 var Bog = new Bogus.Faker<User>()
     .RuleFor(u => u.Id, f => userid++)
