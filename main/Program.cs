@@ -5,6 +5,7 @@ using System.Globalization;
 Console.WriteLine("Enter Text");
 Random rnd = new Random();
 
+PasswordChecker.CheckPassword();
 generateAndSortList();
 RunGuesser();
 RunQuiz(5);
