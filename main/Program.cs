@@ -1,12 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using System;
-using System.Globalization;
-
-Console.WriteLine("Enter Text");
+﻿Console.WriteLine("Enter Text");
 Random rnd = new Random();
 
 PasswordChecker.CheckPassword();
-generateAndSortList();
+GenerateAndSortList();
 RunGuesser();
 RunQuiz(5);
 bool GiveQuestion(int rightAnswers)
@@ -63,18 +59,18 @@ void RunGuesser()
     }
 }
 
-void generateAndSortList()
+void GenerateAndSortList()
 {
     List<int> numbers = Quicksort.SortAndReturnList(Enumerable.Range(0, 10).Select(_ => rnd.Next(0, 100)).ToList());
     Console.WriteLine(string.Join(", ", numbers));
 }
 
 var userid = 0;
-var Bog = new Bogus.Faker<User>()
+var bog = new Bogus.Faker<User>()
     .RuleFor(u => u.Id, f => userid++)
     .RuleFor(u => u.Name, f => Guid.NewGuid().ToString());
 
-List<User> users = Bog.Generate(20);
+List<User> users = bog.Generate(20);
 foreach (User user in users)
 {
     Console.WriteLine($"{user.Id}\t{user.Name}");
